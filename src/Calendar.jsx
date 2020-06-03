@@ -62,7 +62,15 @@ const chunk = (arrayDays, n) => {
 };
 
 const Calendar = ({ date }) => {
-    const weekDays = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+    const weekDays = [
+        ['Понедельник', 'Пн'],
+        ['Вторник', 'Вт'],
+        ['Среда', 'Ср'],
+        ['Четверг', 'Чт'],
+        ['Пятница', 'Пт'],
+        ['Суббота', 'Сб'],
+        ['Воскресенье', 'Вс'],
+    ];
     const accusativeMonthsWord = ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'];
     const nominativeMonthWord = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
     const year = date.getFullYear();
@@ -76,7 +84,7 @@ const Calendar = ({ date }) => {
     return ( 
         <div className="ui-datepicker">
             <div className="ui-datepicker-material-header">
-                <div className="ui-datepicker-material-day">{ weekDays[date.getDay()] }</div>
+                <div className="ui-datepicker-material-day">{ date.getDay() === 0 ? weekDays[weekDays.length - 1][0] : weekDays[date.getDay()][0] }</div>
                 <div className="ui-datepicker-material-date">
                     <div className="ui-datepicker-material-day-num">{ currentDay }</div>
                     <div className="ui-datepicker-material-month">{ accusativeMonthsWord[month] }</div>
@@ -100,13 +108,13 @@ const Calendar = ({ date }) => {
                 </colgroup>
                 <thead>
                     <tr>
-                        <th scope="col" title="Понедельник">Пн</th>
-                        <th scope="col" title="Вторник">Вт</th>
-                        <th scope="col" title="Среда">Ср</th>
-                        <th scope="col" title="Четверг">Чт</th>
-                        <th scope="col" title="Пятница">Пт</th>
-                        <th scope="col" title="Суббота">Сб</th>
-                        <th scope="col" title="Воскресенье">Вс</th>
+                        {
+                            weekDays.map(([fullDay, day], index) => {
+                                return (
+                                    <th scope="col" key={ index } title={ fullDay }>{ day }</th>
+                                )
+                            })
+                        }
                     </tr>
                 </thead>
                 <tbody>
